@@ -9,7 +9,6 @@ public class PlayerCar : Car
 
     private enum MOVE_ACTION {FORWARD=0, RIGHT, LEFT};
     private World.WorldCoord nextDir;
-    private bool resetAction = true;
 
     private static readonly float INPUT_DELAY= 1;
     private Coroutine inputResetRoutine = null;
@@ -53,14 +52,9 @@ public class PlayerCar : Car
 
         if(inputSensed)
         {
-            resetAction = false;
             if(inputResetRoutine != null)
                 StopCoroutine(inputResetRoutine);
             StartCoroutine(inputDelayReset());
-        }
-        else
-        {
-            resetAction = true;
         }
         base.Update();
     }
