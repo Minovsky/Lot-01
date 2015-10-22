@@ -6,6 +6,8 @@ using System.Collections.Generic;
 
 public class Car : MonoBehaviour
 {
+    public static readonly float PATIENCE = 3; 
+
     [SerializeField]
     protected float speed = 5;
 
@@ -16,6 +18,7 @@ public class Car : MonoBehaviour
     protected Vector2 current;
     protected bool transitioned;
     private bool parking;
+    private Coroutine curRoutine;
 
     protected bool froze = false;
 
@@ -25,12 +28,22 @@ public class Car : MonoBehaviour
 
     }
 
+    private IEnumerator Frustation()
+    {
+        yield return new WaitForSeconds(PATIENCE);
+
+        parking = false;
+        OnDestinationReached();
+    }
+
     public virtual void Park(World.WorldCoord dir)
     {
         Assert.IsTrue(World.Instance.ParkingSpotOpen(worldLocation+dir, dir));
 
         parking = true;
         MoveIfPossible(dir);
+
+        curRoutine = StartCoroutine(Frustation());
     }
 
     public virtual void UnPark()
@@ -132,5 +145,7 @@ public class Car : MonoBehaviour
 
     protected virtual void OnParked()
     {
+        if(curRoutine != null)
+            StopCoroutine(curRoutine);
     }
 }
