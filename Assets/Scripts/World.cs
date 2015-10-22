@@ -30,6 +30,15 @@ public class World : MonoBehaviour
             return new WorldCoord(c1.x - c2.x, c1.y - c2.y);
         }
 
+        public static bool operator==(WorldCoord c1, WorldCoord c2)
+        {
+            return c1.x == c2.x && c1.y == c2.y;
+        }
+        public static bool operator!=(WorldCoord c1, WorldCoord c2)
+        {
+            return c1.x != c2.x || c1.y != c2.y;
+        }
+
         public override string ToString()
         {
             return String.Format("({0}, {1})", x, y);

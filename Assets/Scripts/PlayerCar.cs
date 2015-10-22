@@ -8,32 +8,55 @@ public class PlayerCar : Car
 {
 
     private enum MOVE_ACTION {FORWARD=0, RIGHT, LEFT};
-    private MOVE_ACTION nextMove;
+    private World.WorldCoord nextDir;
     private bool resetAction = true;
+
+    private static readonly float INPUT_DELAY= 1;
+    private Coroutine inputResetRoutine = null;
+
+    private IEnumerator inputDelayReset()
+    {
+        yield return new WaitForSeconds(INPUT_DELAY);
+
+        nextDir = direction;
+    }
 
     // Use this for initialization
     public override void Start ()
     {
-        nextMove = MOVE_ACTION.FORWARD;
+        nextDir = direction;
     }
 
     public override void Update()
     {
-        if(Input.GetAxis("Horizontal") > 0)
+        bool inputSensed = false;
+        if(Input.GetAxis("Vertical") > 0)
         {
-            if(resetAction)
-            {
-                nextMove = MOVE_ACTION.LEFT;
-                resetAction = false;
-            }
+            inputSensed = true;
+                nextDir = new World.WorldCoord(0, 1);
+        }
+        else if(Input.GetAxis("Vertical") < 0)
+        {
+            inputSensed = true;
+                nextDir = new World.WorldCoord(0, -1);
         }
         else if(Input.GetAxis("Horizontal") < 0)
         {
-            if(resetAction)
-            {
-                nextMove = MOVE_ACTION.RIGHT;
-                resetAction = false;
-            }
+            inputSensed = true;
+                nextDir = new World.WorldCoord(-1, 0);
+        }
+        else if(Input.GetAxis("Horizontal") > 0)
+        {
+            inputSensed = true;
+                nextDir = new World.WorldCoord(1, 0);
+        }
+
+        if(inputSensed)
+        {
+            resetAction = false;
+            if(inputResetRoutine != null)
+                StopCoroutine(inputResetRoutine);
+            StartCoroutine(inputDelayReset());
         }
         else
         {
@@ -44,30 +67,20 @@ public class PlayerCar : Car
 
     private void MoveBasedOnInput()
     {
-        World.WorldCoord move;
         uint wrapIndex = (uint)Array.IndexOf(World.POSSIBLE_DIRECTIONS, direction);
-        switch(nextMove)
+
+        if((nextDir == World.POSSIBLE_DIRECTIONS[(wrapIndex-1) % World.POSSIBLE_DIRECTIONS.Length]
+                || nextDir == World.POSSIBLE_DIRECTIONS[(wrapIndex+1) % World.POSSIBLE_DIRECTIONS.Length])
+                && World.Instance.CanMoveInto(worldLocation+nextDir, nextDir))
         {
-            case MOVE_ACTION.LEFT:
-                move = World.POSSIBLE_DIRECTIONS[(wrapIndex-1) % World.POSSIBLE_DIRECTIONS.Length];
-                break;
-            case MOVE_ACTION.RIGHT:
-                move = World.POSSIBLE_DIRECTIONS[(wrapIndex+1) % World.POSSIBLE_DIRECTIONS.Length];
-                break;
-            default:
-            case MOVE_ACTION.FORWARD:
-                move = direction;
-                break;
-        }
-        if(World.Instance.CanMoveInto(worldLocation+move, move))
-        {
-            MoveIfPossible(move);
+            MoveIfPossible(nextDir);
         }
         else
         {
             //Move forward
             MoveIfPossible(direction);
         }
+
     }
 
     protected override void OnDestinationReached()
@@ -81,7 +94,6 @@ public class PlayerCar : Car
         {
             MoveBasedOnInput();
         }
-        nextMove = MOVE_ACTION.FORWARD;
     }
 
     protected override void OnParked()
