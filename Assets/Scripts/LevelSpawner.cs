@@ -1,23 +1,74 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class LevelSpawner : MonoBehaviour
 {
     private static readonly int MAX_GUESSES = 3000;
 
+    public GameObject standInCarPrefab;
     public GameObject npcCarPrefab;
     public GameObject playerCarPrefab;
 
     public uint numberOfNPCs = 8;
+    public uint numberOfOpenSpots = 3;
 
     // Use this for initialization
     void Start ()
     {
+        GenerateParkedCars();
+
         Car playerCar = ((GameObject)Instantiate(playerCarPrefab, Vector2.zero, Quaternion.identity)).GetComponent<Car>();
         playerCar.TeleportTo(new World.WorldCoord(0, World.WORLD_HEIGHT-1), new World.WorldCoord(1, 0));
         for(int i = 0; i < numberOfNPCs; i++)
         {
             SpawnRandomCar();
+        }
+    }
+    private struct CoordAndDir
+    {
+        public World.WorldCoord c;
+        public World.WorldCoord d;
+        public CoordAndDir(World.WorldCoord c, World.WorldCoord d)
+        {
+            this.c = c;
+            this.d = d;
+        }
+    }
+
+    private void GenerateParkedCars()
+    {
+        List<CoordAndDir> parking = new List<CoordAndDir>();
+        for(int i = 0; i < World.WORLD_WIDTH; i++)
+        {
+            for(int j = 0; j < World.WORLD_HEIGHT; j++)
+            {
+                var coord = new World.WorldCoord(i, j);
+                if(World.Instance.IsParkingSpot(coord))
+                {
+                    if(World.Instance.CanMoveInto(coord, new World.WorldCoord(1, 0)))
+                    {
+                        parking.Add(new CoordAndDir(coord, new World.WorldCoord(1, 0)));
+                        parking.Add(new CoordAndDir(coord, new World.WorldCoord(-1, 0)));
+                    }
+                    else
+                    {
+                        parking.Add(new CoordAndDir(coord, new World.WorldCoord(0, 1)));
+                        parking.Add(new CoordAndDir(coord, new World.WorldCoord(0, -1)));
+                    }
+                }
+            }
+        }
+
+        for(int i = 0; i < numberOfOpenSpots; i++)
+        {
+            parking.RemoveAt(Random.Range(0, parking.Count));
+        }
+
+        foreach(var pair in parking)
+        {
+            Car car = ((GameObject)Instantiate(standInCarPrefab, Vector2.zero, Quaternion.identity)).GetComponent<Car>();
+            car.TeleportTo(pair.c, pair.d);
         }
     }
 

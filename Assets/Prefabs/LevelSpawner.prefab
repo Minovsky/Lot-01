@@ -39,9 +39,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db087c8445349bb47a07ba343e50dea3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  standInCarPrefab: {fileID: 168138, guid: 84c067e65febd444a8e8a03425575859, type: 2}
   npcCarPrefab: {fileID: 172604, guid: 5955839e301201b4ca9497fd95b77dd1, type: 2}
   playerCarPrefab: {fileID: 189586, guid: f78d2e16df704684d8e4ccdd6f996f60, type: 2}
   numberOfNPCs: 8
+  numberOfOpenSpots: 3
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
