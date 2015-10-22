@@ -122,7 +122,7 @@ public class World : MonoBehaviour
     public float gridToWorldSize = .5f;
 
     public static readonly int WORLD_WIDTH = 11;
-    public static readonly int WORLD_HEIGHT = 9;
+    public static readonly int WORLD_HEIGHT = 13;
 
 #if DEBUG
     public GameObject gridSpot;
@@ -136,10 +136,14 @@ public class World : MonoBehaviour
         {0, 4, 0, 4, 0, 4, 0, 4, 0, 4, 0},
         {0, 4, 0, 4, 0, 4, 0, 4, 0, 4, 0},
         {0, 4, 0, 4, 0, 4, 0, 4, 0, 4, 0},
+		{0, 4, 0, 4, 0, 4, 0, 4, 0, 4, 0},
+		{0, 4, 0, 4, 0, 4, 0, 4, 0, 4, 0},
 
         {3, 1, 3, 1, 3, 1, 3, 1, 3, 1, 3},
 
-        {0, 4, 0, 4, 0, 4, 0, 4, 0, 4, 0},
+		{0, 4, 0, 4, 0, 4, 0, 4, 0, 4, 0},
+		{0, 4, 0, 4, 0, 4, 0, 4, 0, 4, 0},
+		{0, 4, 0, 4, 0, 4, 0, 4, 0, 4, 0},
         {0, 4, 0, 4, 0, 4, 0, 4, 0, 4, 0},
         {0, 4, 0, 4, 0, 4, 0, 4, 0, 4, 0},
 
@@ -400,7 +404,7 @@ public class World : MonoBehaviour
     public Vector2 GetWorldLocation(WorldCoord c, WorldCoord direction)
     {
         //center
-        Vector2 location = new Vector2((float)((2*c.x)+1)*gridToWorldSize, (float)((1*c.y)+1)*gridToWorldSize);
+        Vector2 location = new Vector2((float)((2*c.x)+1)*gridToWorldSize, (float)((1.125*c.y)+1)*gridToWorldSize);
 
         DIRECTION enumDirection = directionFromCoord(direction);
         if(IsParkingSpot(c))
