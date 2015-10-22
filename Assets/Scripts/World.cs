@@ -391,7 +391,7 @@ public class World : MonoBehaviour
     public Vector2 GetWorldLocation(WorldCoord c, WorldCoord direction)
     {
         //center
-        Vector2 location = new Vector2((float)((2*c.x)+1)*gridToWorldSize, (float)((2*c.y)+1)*gridToWorldSize);
+        Vector2 location = new Vector2((float)((2*c.x)+1)*gridToWorldSize, (float)((1*c.y)+1)*gridToWorldSize);
 
         DIRECTION enumDirection = directionFromCoord(direction);
         if(IsParkingSpot(c))
