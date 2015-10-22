@@ -210,7 +210,7 @@ public class World : MonoBehaviour
         }
     }
 
-    public bool canMoveInto(WorldCoord c, WorldCoord direction)
+    public bool CanMoveInto(WorldCoord c, WorldCoord direction)
     {
         Assert.IsTrue(WithinBounds(c));
         Assert.IsTrue(IsDirection(direction));
@@ -255,7 +255,7 @@ public class World : MonoBehaviour
 
     public void MoveInto(WorldCoord c, WorldCoord direction, GameObject go)
     {
-        Assert.IsTrue(canMoveInto(c, direction));
+        Assert.IsTrue(CanMoveInto(c, direction));
         Assert.IsTrue(WithinBounds(c));
         Assert.IsTrue(IsDirection(direction));
 
@@ -285,7 +285,7 @@ public class World : MonoBehaviour
 
     public void LeaveFrom(WorldCoord c, WorldCoord direction)
     {
-        Assert.IsTrue(!canMoveInto(c, direction));
+        Assert.IsTrue(!CanMoveInto(c, direction));
         Assert.IsTrue(WithinBounds(c));
         Assert.IsTrue(IsDirection(direction));
 
@@ -366,7 +366,7 @@ public class World : MonoBehaviour
                 for(int k = 0; k < directions.Length; k++)
                 {
                     World.WorldCoord coord = new World.WorldCoord(i, j);
-                    if(World.Instance.canMoveInto(coord, directions[k]))
+                    if(World.Instance.CanMoveInto(coord, directions[k]))
                     {
                         Vector2 location = World.Instance.GetWorldLocation(coord, directions[k]);
                         debugLanePosition[i,j,laneIndex].transform.position = location;
