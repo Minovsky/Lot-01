@@ -25,12 +25,16 @@ public class Car : MonoBehaviour
 
     }
 
-    public void Park(World.WorldCoord dir)
+    public virtual void Park(World.WorldCoord dir)
     {
         Assert.IsTrue(World.Instance.ParkingSpotOpen(worldLocation+dir, dir));
 
         parking = true;
         MoveIfPossible(dir);
+    }
+
+    public virtual void UnPark()
+    {
     }
 
     public bool FindNewDestination(World.WorldCoord dir, out Vector2 dest)

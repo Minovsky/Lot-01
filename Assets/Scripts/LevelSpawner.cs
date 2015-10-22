@@ -25,20 +25,9 @@ public class LevelSpawner : MonoBehaviour
             SpawnRandomCar();
         }
     }
-    private struct CoordAndDir
-    {
-        public World.WorldCoord c;
-        public World.WorldCoord d;
-        public CoordAndDir(World.WorldCoord c, World.WorldCoord d)
-        {
-            this.c = c;
-            this.d = d;
-        }
-    }
-
     private void GenerateParkedCars()
     {
-        List<CoordAndDir> parking = new List<CoordAndDir>();
+        List<World.CoordAndDir> parking = new List<World.CoordAndDir>();
         for(int i = 0; i < World.WORLD_WIDTH; i++)
         {
             for(int j = 0; j < World.WORLD_HEIGHT; j++)
@@ -48,13 +37,13 @@ public class LevelSpawner : MonoBehaviour
                 {
                     if(World.Instance.CanMoveInto(coord, new World.WorldCoord(1, 0)))
                     {
-                        parking.Add(new CoordAndDir(coord, new World.WorldCoord(1, 0)));
-                        parking.Add(new CoordAndDir(coord, new World.WorldCoord(-1, 0)));
+                        parking.Add(new World.CoordAndDir(coord, new World.WorldCoord(1, 0)));
+                        parking.Add(new World.CoordAndDir(coord, new World.WorldCoord(-1, 0)));
                     }
                     else
                     {
-                        parking.Add(new CoordAndDir(coord, new World.WorldCoord(0, 1)));
-                        parking.Add(new CoordAndDir(coord, new World.WorldCoord(0, -1)));
+                        parking.Add(new World.CoordAndDir(coord, new World.WorldCoord(0, 1)));
+                        parking.Add(new World.CoordAndDir(coord, new World.WorldCoord(0, -1)));
                     }
                 }
             }

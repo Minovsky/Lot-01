@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -96,6 +97,17 @@ public class World : MonoBehaviour
         }
     }
 
+    public struct CoordAndDir
+    {
+        public World.WorldCoord c;
+        public World.WorldCoord d;
+        public CoordAndDir(World.WorldCoord c, World.WorldCoord d)
+        {
+            this.c = c;
+            this.d = d;
+        }
+    }
+
     public enum DIRECTION {UP, RIGHT, DOWN, LEFT};
 
     public float gridToWorldSize = .5f;
@@ -127,6 +139,8 @@ public class World : MonoBehaviour
 
     private bool[,] m_parkingSpot = GenerateParking();
     private Lane[,] m_lot = GenerateLot();
+
+    Dictionary<CoordAndDir, Car> parkedCars = new Dictionary<CoordAndDir, Car>();
 
     private static bool[,] GenerateParking()
     {
@@ -292,6 +306,11 @@ public class World : MonoBehaviour
                     break;
             }
         }
+
+        if(IsParkingSpot(c))
+        {
+            parkedCars[new CoordAndDir(c, direction)] = go.GetComponent<Car>();
+        }
     }
 
     public bool IsParkingSpot(WorldCoord c)
@@ -326,6 +345,19 @@ public class World : MonoBehaviour
         return false;
     }
 
+    public Car GetRandomParkedCar()
+    {
+        int r = UnityEngine.Random.Range(0, parkedCars.Values.Count);
+        int count = 0;
+        foreach(var v in parkedCars.Values)
+        {
+            if(count == r)
+                return v;
+            count++;
+        }
+        return null;
+    }
+
     public void LeaveFrom(WorldCoord c, WorldCoord direction)
     {
         Assert.IsTrue(!CanMoveInto(c, direction));
@@ -348,6 +380,11 @@ public class World : MonoBehaviour
                         m_lot[c.x,c.y].currentFlow = Lane.ORIENTATION.INTERSECTION;
                     break;
             }
+        }
+
+        if(IsParkingSpot(c))
+        {
+            parkedCars[new CoordAndDir(c, direction)] = null;
         }
     }
 

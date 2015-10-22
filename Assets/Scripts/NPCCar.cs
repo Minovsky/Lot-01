@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 public class NPCCar : Car
 {
+    public GameObject standInCarPrefab;
+
+    private bool dead = false;
 
     // Use this for initialization
     public override void Start ()
@@ -48,7 +51,23 @@ public class NPCCar : Car
         }
     }
 
+    private IEnumerator RandomLeaveLot()
+    {
+        yield return new WaitForSeconds(2);
+
+        World.Instance.GetRandomParkedCar().UnPark();
+    }
+
     protected override void OnParked()
     {
+        if(!dead)
+        {
+            dead = true;
+            StartCoroutine(RandomLeaveLot());
+            World.Instance.LeaveFrom(worldLocation, direction);
+            GetComponentInChildren<SpriteRenderer>().enabled = false;
+            Car car = ((GameObject)Instantiate(standInCarPrefab, Vector2.zero, Quaternion.identity)).GetComponent<Car>();
+            car.TeleportTo(worldLocation, direction);
+        }
     }
 }
