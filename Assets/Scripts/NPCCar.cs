@@ -55,7 +55,9 @@ public class NPCCar : Car
     {
         yield return new WaitForSeconds(2);
 
-        World.Instance.GetRandomParkedCar().UnPark();
+        Car car = World.Instance.GetRandomParkedCar();
+        if(car != null)
+            car.UnPark();
     }
 
     protected override void OnParked()
