@@ -42,7 +42,7 @@ MonoBehaviour:
   standInCarPrefab: {fileID: 168138, guid: 84c067e65febd444a8e8a03425575859, type: 2}
   npcCarPrefab: {fileID: 172604, guid: 5955839e301201b4ca9497fd95b77dd1, type: 2}
   playerCarPrefab: {fileID: 189586, guid: f78d2e16df704684d8e4ccdd6f996f60, type: 2}
-  numberOfNPCs: 8
+  numberOfNPCs: 16
   numberOfOpenSpots: 3
 --- !u!1001 &100100000
 Prefab:
@@ -50,7 +50,11 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: numberOfNPCs
+      value: 16
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 112298}

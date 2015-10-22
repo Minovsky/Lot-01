@@ -40,7 +40,7 @@ Transform:
   m_GameObject: {fileID: 153376}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5, y: 2.5, z: 1}
+  m_LocalScale: {x: 4, y: 2.5, z: 1}
   m_Children: []
   m_Father: {fileID: 462394}
   m_RootOrder: 0
@@ -68,7 +68,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 255e8525515784a4c82f91842b96d9c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 2.5
   standInCarPrefab: {fileID: 168138, guid: 84c067e65febd444a8e8a03425575859, type: 2}
 --- !u!212 &21259450
 SpriteRenderer:
@@ -111,6 +111,14 @@ Prefab:
       propertyPath: standInCarPrefab
       value: 
       objectReference: {fileID: 168138, guid: 84c067e65febd444a8e8a03425575859, type: 2}
+    - target: {fileID: 0}
+      propertyPath: speed
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalScale.x
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 172604}
