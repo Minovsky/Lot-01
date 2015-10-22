@@ -8,6 +8,7 @@ using UnityEngine.Assertions;
 
 public class World : MonoBehaviour
 {
+    [System.Serializable]
     public struct WorldCoord
     {
         public int x;

@@ -3,6 +3,16 @@ using System.Collections;
 
 public class LevelSpawner : MonoBehaviour
 {
+    private static readonly int MAX_GUESSES = 3000;
+
+    private static readonly World.WorldCoord[] POSSIBLE_DIRECTIONS =
+    {
+        new World.WorldCoord(1, 0),
+        new World.WorldCoord(0, 1),
+        new World.WorldCoord(-1, 0),
+        new World.WorldCoord(0, -1),
+    };
+
     public GameObject npcCarPrefab;
     public GameObject playerCarPrefab;
 
@@ -11,10 +21,30 @@ public class LevelSpawner : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
-        Car newCar = ((GameObject)Instantiate(npcCarPrefab, Vector2.zero, Quaternion.identity)).GetComponent<Car>();
+        for(int i = 0; i < numberOfNPCs; i++)
+        {
+            SpawnRandomCar();
+        }
+    }
 
-        World.WorldCoord teleLocation = new World.WorldCoord(0, 0);
-        World.WorldCoord teleDir = new World.WorldCoord(1, 0);
-        newCar.TeleportTo(teleLocation, teleDir);
+    private void SpawnRandomCar()
+    {
+        World.WorldCoord teleLocation = new World.WorldCoord(Random.Range(0, World.WORLD_WIDTH), Random.Range(0, World.WORLD_HEIGHT));
+        World.WorldCoord teleDir = POSSIBLE_DIRECTIONS[Random.Range(0, POSSIBLE_DIRECTIONS.Length)];
+        int count = 0;
+        while(!World.Instance.CanMoveInto(teleLocation, teleDir)
+                || World.Instance.IsParkingSpot(teleLocation)
+                || count >= MAX_GUESSES)
+        {
+            count++;
+            teleLocation = new World.WorldCoord(Random.Range(0, World.WORLD_WIDTH), Random.Range(0, World.WORLD_HEIGHT));
+            teleDir = POSSIBLE_DIRECTIONS[Random.Range(0, POSSIBLE_DIRECTIONS.Length)];
+        }
+
+        if(count < MAX_GUESSES)
+        {
+            Car newCar = ((GameObject)Instantiate(npcCarPrefab, Vector2.zero, Quaternion.identity)).GetComponent<Car>();
+            newCar.TeleportTo(teleLocation, teleDir);
+        }
     }
 }

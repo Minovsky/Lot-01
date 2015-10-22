@@ -47,8 +47,10 @@ public class Car : MonoBehaviour
             World.Instance.MoveInto(destCoord, newDir, this.gameObject);
             worldLocation = destCoord;
             direction = newDir;
+            destDir = newDir;
             froze = false;
             current = World.Instance.GetWorldLocation(worldLocation, direction);
+            destination = current;
             transform.position = current;
             MoveIfPossible(direction);
         }
