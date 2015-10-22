@@ -40,7 +40,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   npcCarPrefab: {fileID: 172604, guid: 5955839e301201b4ca9497fd95b77dd1, type: 2}
-  playerCarPrefab: {fileID: 0}
+  playerCarPrefab: {fileID: 189586, guid: f78d2e16df704684d8e4ccdd6f996f60, type: 2}
   numberOfNPCs: 8
 --- !u!1001 &100100000
 Prefab:

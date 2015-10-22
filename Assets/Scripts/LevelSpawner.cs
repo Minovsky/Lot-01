@@ -13,6 +13,8 @@ public class LevelSpawner : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
+        Car playerCar = ((GameObject)Instantiate(playerCarPrefab, Vector2.zero, Quaternion.identity)).GetComponent<Car>();
+        playerCar.TeleportTo(new World.WorldCoord(0, World.WORLD_HEIGHT-1), new World.WorldCoord(1, 0));
         for(int i = 0; i < numberOfNPCs; i++)
         {
             SpawnRandomCar();
