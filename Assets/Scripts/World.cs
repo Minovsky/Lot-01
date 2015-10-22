@@ -212,7 +212,8 @@ public class World : MonoBehaviour
 
     public bool CanMoveInto(WorldCoord c, WorldCoord direction)
     {
-        Assert.IsTrue(WithinBounds(c));
+        if(!WithinBounds(c))
+            return false;
         Assert.IsTrue(IsDirection(direction));
 
         Lane lane = m_lot[c.x,c.y];
