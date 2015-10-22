@@ -37,6 +37,18 @@ public class NPCCar : Car
 
     protected override void OnDestinationReached()
     {
-        MoveRandomDirection();
+        World.WorldCoord parkingOffset;
+        if(World.Instance.NextToOpenParking(worldLocation, direction, out parkingOffset))
+        {
+            Park(parkingOffset);
+        }
+        else
+        {
+            MoveRandomDirection();
+        }
+    }
+
+    protected override void OnParked()
+    {
     }
 }

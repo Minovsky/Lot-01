@@ -5,14 +5,6 @@ public class LevelSpawner : MonoBehaviour
 {
     private static readonly int MAX_GUESSES = 3000;
 
-    private static readonly World.WorldCoord[] POSSIBLE_DIRECTIONS =
-    {
-        new World.WorldCoord(1, 0),
-        new World.WorldCoord(0, 1),
-        new World.WorldCoord(-1, 0),
-        new World.WorldCoord(0, -1),
-    };
-
     public GameObject npcCarPrefab;
     public GameObject playerCarPrefab;
 
@@ -30,7 +22,7 @@ public class LevelSpawner : MonoBehaviour
     private void SpawnRandomCar()
     {
         World.WorldCoord teleLocation = new World.WorldCoord(Random.Range(0, World.WORLD_WIDTH), Random.Range(0, World.WORLD_HEIGHT));
-        World.WorldCoord teleDir = POSSIBLE_DIRECTIONS[Random.Range(0, POSSIBLE_DIRECTIONS.Length)];
+        World.WorldCoord teleDir = World.POSSIBLE_DIRECTIONS[Random.Range(0, World.POSSIBLE_DIRECTIONS.Length)];
         int count = 0;
         while(!World.Instance.CanMoveInto(teleLocation, teleDir)
                 || World.Instance.IsParkingSpot(teleLocation)
@@ -38,7 +30,7 @@ public class LevelSpawner : MonoBehaviour
         {
             count++;
             teleLocation = new World.WorldCoord(Random.Range(0, World.WORLD_WIDTH), Random.Range(0, World.WORLD_HEIGHT));
-            teleDir = POSSIBLE_DIRECTIONS[Random.Range(0, POSSIBLE_DIRECTIONS.Length)];
+            teleDir = World.POSSIBLE_DIRECTIONS[Random.Range(0, World.POSSIBLE_DIRECTIONS.Length)];
         }
 
         if(count < MAX_GUESSES)

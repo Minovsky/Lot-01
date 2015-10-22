@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using UnityEngine.Assertions;
+
 using System.Collections;
 using System.Collections.Generic;
 
@@ -13,6 +15,7 @@ public class Car : MonoBehaviour
     protected World.WorldCoord destDir;
     protected Vector2 current;
     protected bool transitioned;
+    private bool parking;
 
     protected bool froze = false;
 
@@ -20,6 +23,14 @@ public class Car : MonoBehaviour
     public virtual void Start ()
     {
 
+    }
+
+    public void Park(World.WorldCoord dir)
+    {
+        Assert.IsTrue(World.Instance.ParkingSpotOpen(worldLocation+dir, dir));
+
+        parking = true;
+        MoveIfPossible(dir);
     }
 
     public bool FindNewDestination(World.WorldCoord dir, out Vector2 dest)
@@ -64,7 +75,7 @@ public class Car : MonoBehaviour
             transform.position = Vector2.MoveTowards(transform.position, destination, speed*Time.deltaTime);
 
             //Transition to next cell
-            if(Vector2.Distance(transform.position, destination)/Vector2.Distance(destination, current) < .5 && !transitioned)
+            if(Vector2.Distance(transform.position, destination)/Vector2.Distance(destination, current) < .75 && !transitioned)
             {
                 World.WorldCoord destCoord = worldLocation+destDir;
                 if(World.Instance.CanMoveInto(destCoord, destDir))
@@ -83,7 +94,10 @@ public class Car : MonoBehaviour
 
             if(transform.position == (Vector3)destination)
             {
-                OnDestinationReached();
+                if(!parking)
+                    OnDestinationReached();
+                else
+                    OnParked();
             }
         }
         else
@@ -110,5 +124,9 @@ public class Car : MonoBehaviour
     protected virtual void OnDestinationReached()
     {
         MoveIfPossible(direction);
+    }
+
+    protected virtual void OnParked()
+    {
     }
 }

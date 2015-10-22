@@ -50,6 +50,14 @@ public class World : MonoBehaviour
         }
     }
 
+    public static readonly World.WorldCoord[] POSSIBLE_DIRECTIONS =
+    {
+        new World.WorldCoord(1, 0),
+        new World.WorldCoord(0, 1),
+        new World.WorldCoord(-1, 0),
+        new World.WorldCoord(0, -1),
+    };
+
 
     public enum LANE_SIDE {UP_LEFT=0, DOWN_RIGHT};
     private struct Lane
@@ -227,12 +235,18 @@ public class World : MonoBehaviour
         {
             case DIRECTION.UP:
             case DIRECTION.DOWN:
-                isCorrectFlow = compareToOrientation == Lane.ORIENTATION.VERTICAL || compareToOrientation == Lane.ORIENTATION.INTERSECTION;
+                if(!IsParkingSpot(c))
+                    isCorrectFlow = compareToOrientation == Lane.ORIENTATION.VERTICAL || compareToOrientation == Lane.ORIENTATION.INTERSECTION;
+                else
+                    isCorrectFlow = compareToOrientation == Lane.ORIENTATION.HORIZONTAL || compareToOrientation == Lane.ORIENTATION.INTERSECTION;
                 break;
             default:
             case DIRECTION.RIGHT:
             case DIRECTION.LEFT:
-                isCorrectFlow = compareToOrientation == Lane.ORIENTATION.HORIZONTAL || compareToOrientation == Lane.ORIENTATION.INTERSECTION;
+                if(!IsParkingSpot(c))
+                    isCorrectFlow = compareToOrientation == Lane.ORIENTATION.HORIZONTAL || compareToOrientation == Lane.ORIENTATION.INTERSECTION;
+                else
+                    isCorrectFlow = compareToOrientation == Lane.ORIENTATION.VERTICAL || compareToOrientation == Lane.ORIENTATION.INTERSECTION;
                 break;
         }
 
@@ -282,7 +296,34 @@ public class World : MonoBehaviour
 
     public bool IsParkingSpot(WorldCoord c)
     {
-        return m_parkingSpot[c.x,c.y];
+        if(WithinBounds(c))
+        {
+            return m_parkingSpot[c.x,c.y];
+        }
+        return false;
+    }
+
+    public bool ParkingSpotOpen(WorldCoord c, WorldCoord dir)
+    {
+        Assert.IsTrue(IsParkingSpot(c));
+
+        return CanMoveInto(c, dir);
+    }
+
+    public bool NextToOpenParking(WorldCoord c, WorldCoord dir, out WorldCoord parkingOffset)
+    {
+        foreach(var pdir in POSSIBLE_DIRECTIONS)
+        {
+            var newCoord = c+pdir;
+            if(IsParkingSpot(newCoord) && ParkingSpotOpen(newCoord, pdir))
+            {
+                parkingOffset = pdir;
+                return true;
+            }
+        }
+
+        parkingOffset = dir;
+        return false;
     }
 
     public void LeaveFrom(WorldCoord c, WorldCoord direction)
@@ -315,7 +356,27 @@ public class World : MonoBehaviour
         //center
         Vector2 location = new Vector2((float)((2*c.x)+1)*gridToWorldSize, (float)((2*c.y)+1)*gridToWorldSize);
 
-        switch(directionFromCoord(direction))
+        DIRECTION enumDirection = directionFromCoord(direction);
+        if(IsParkingSpot(c))
+        {
+            switch(enumDirection)
+            {
+                case DIRECTION.UP:
+                    enumDirection = DIRECTION.LEFT;
+                    break;
+                case DIRECTION.DOWN:
+                    enumDirection = DIRECTION.RIGHT;
+                    break;
+                case DIRECTION.LEFT:
+                    enumDirection = DIRECTION.UP;
+                    break;
+                case DIRECTION.RIGHT:
+                    enumDirection = DIRECTION.DOWN;
+                    break;
+            }
+        }
+
+        switch(enumDirection)
         {
             case DIRECTION.UP:
                 location.x += gridToWorldSize/2;
