@@ -5,13 +5,16 @@ using System.Collections.Generic;
 public class NPCCar : Car
 {
     public GameObject standInCarPrefab;
+	public Sprite[] carSprites = new Sprite[4];
 
     private bool dead = false;
+	private int randomValue;
 
     // Use this for initialization
     public override void Start ()
     {
-
+		randomValue = Random.Range (0, 4);
+		GetComponentInChildren<SpriteRenderer> ().sprite = carSprites [randomValue];
     }
 
     public void MoveRandomDirection()
@@ -69,6 +72,7 @@ public class NPCCar : Car
             World.Instance.LeaveFrom(worldLocation, direction);
             GetComponentInChildren<SpriteRenderer>().enabled = false;
             Car car = ((GameObject)Instantiate(standInCarPrefab, Vector2.zero, Quaternion.identity)).GetComponent<Car>();
+			car.GetComponentInChildren<StandInCar> ().ChangeColor (randomValue);
             car.TeleportTo(worldLocation, direction);
         }
     }
