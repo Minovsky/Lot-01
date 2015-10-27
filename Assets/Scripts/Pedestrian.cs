@@ -7,14 +7,15 @@ using System.Collections.Generic;
 
 public class Pedestrian : Moveable
 {
-    protected static World.WorldCoord leaveLocation = new World.WorldCoord(0, World.WORLD_HEIGHT-1);
+    protected static World.WorldCoord leaveLocation = new World.WorldCoord(0, World.WORLD_HEIGHT);
     protected bool unhinged = false;
 
     private static readonly float OFFSCREEN_THRESHOLD = 10f;
     private static readonly float WIDTH = .16f;
-    private static readonly float HALO_SIZE = .16f;
+    private static readonly float HALO_SIZE = 0f;
 
-    public GameObject trainExitLocation;
+    public string trainExitTag = "TrainMarker";
+    private GameObject trainExitLocation;
 
     private List<Car> inPath;
 
@@ -25,9 +26,11 @@ public class Pedestrian : Moveable
         inPath = new List<Car>();
 
         var r = UnityEngine.Random.Range(0, World.WORLD_WIDTH/2);
-        var startTarget = new World.WorldCoord(r*2, 0);
+        var startTarget = new World.WorldCoord(r*2, -1);
 
         TeleportTo(startTarget, new World.WorldCoord(0, 1));
+
+        trainExitLocation = GameObject.FindGameObjectWithTag(trainExitTag);
         transform.position = trainExitLocation.transform.position;
     }
 
@@ -86,7 +89,7 @@ public class Pedestrian : Moveable
 
     protected override bool CanMoveInto(World.WorldCoord c, World.WorldCoord direction)
     {
-        return World.WithinBounds(c) && !World.Instance.IsParkingSpot(c);
+        return true;
     }
 
     protected override void MoveInto(World.WorldCoord c, World.WorldCoord direction, GameObject go)
@@ -99,12 +102,23 @@ public class Pedestrian : Moveable
         /* Do Nothing */
     }
 
+    protected void unhingeSelf()
+    {
+        //Leave towards left
+        direction = new World.WorldCoord(-1, 0);
+        GetComponent<BoxCollider2D>().enabled = false;
+
+        foreach(var car in inPath)
+        {
+            car.StopWaiting();
+        }
+    }
+
     protected override void OnDestinationReached()
     {
-        if(worldLocation.y == World.WORLD_HEIGHT-1)
+        if(worldLocation.y == World.WORLD_HEIGHT)
         {
-            //Leave towards left
-            direction = new World.WorldCoord(-1, 0);
+            unhingeSelf();
         }
 
         if(worldLocation == leaveLocation)
