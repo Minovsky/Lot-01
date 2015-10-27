@@ -41,3 +41,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Vehicles
+    uniqueID: 207516571
+    locked: 0
+  - name: Border
+    uniqueID: 1825170741
+    locked: 0
+  - name: UI
+    uniqueID: 4118006833
+    locked: 0

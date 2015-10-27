@@ -38,9 +38,7 @@ public class Timer : MonoBehaviour {
 
 		if (time == 0)
 		{
-			reachedZero = true;
-			lateSprite.color = new Color (1.0f, 1.0f, 1.0f, 1.0f);
-			trainActive.GetComponent<SpriteRenderer>().color = new Color (1.0f, 1.0f, 1.0f, 0.0f);
+			OnTrainArrived();
 		}
 
 		if(time==5 && !trainArrived)
@@ -59,5 +57,12 @@ public class Timer : MonoBehaviour {
 		numScript[0].ChangeNumber(minutes);
 		numScript[1].ChangeNumber(seconds/10);
 		numScript[2].ChangeNumber(seconds%10);
+	}
+
+    void OnTrainArrived()
+    {
+		reachedZero = true;
+		lateSprite.color = new Color (1.0f, 1.0f, 1.0f, 1.0f);
+		trainActive.GetComponent<SpriteRenderer> ().color = new Color (1.0f, 1.0f, 1.0f, 0.0f);
 	}
 }

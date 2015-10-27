@@ -6,7 +6,8 @@ using System.Collections.Generic;
 
 public class PlayerCar : Car
 {
-
+	public AudioClip horn;
+	private AudioSource audioSource;
     private enum MOVE_ACTION {FORWARD=0, RIGHT, LEFT};
     private World.WorldCoord nextDir;
 
@@ -23,6 +24,7 @@ public class PlayerCar : Car
     // Use this for initialization
     public override void Start ()
     {
+		audioSource = GetComponent<AudioSource> ();
         nextDir = direction;
     }
 
@@ -56,6 +58,12 @@ public class PlayerCar : Car
                 StopCoroutine(inputResetRoutine);
             StartCoroutine(inputDelayReset());
         }
+
+		if(Input.GetKeyUp (KeyCode.H))
+		{
+			audioSource.PlayOneShot(horn);
+		}
+
         base.Update();
     }
 
