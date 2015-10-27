@@ -80,14 +80,7 @@ public class PlayerCar : Car
     protected override void OnRoadReached()
     {
         World.WorldCoord parkingOffset;
-        if(World.Instance.NextToOpenParking(worldLocation, direction, out parkingOffset))
-        {
-            Park(parkingOffset);
-        }
-        else
-        {
-            MoveBasedOnInput();
-        }
+        MoveBasedOnInput();
     }
 
     protected override void OnParked()
