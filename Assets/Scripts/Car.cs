@@ -11,12 +11,32 @@ public class Car : Moveable
     private bool parking;
     private Coroutine curRoutine;
 
+    private bool waitingForPedestrian = false;
+
     private IEnumerator Frustation()
     {
         yield return new WaitForSeconds(PATIENCE);
 
         parking = false;
         OnDestinationReached();
+    }
+
+    public override void Update()
+    {
+        if(!waitingForPedestrian)
+        {
+            base.Update();
+        }
+    }
+
+    public void WaitForPedestrian()
+    {
+        waitingForPedestrian = true;
+    }
+
+    public void StopWaiting()
+    {
+        waitingForPedestrian = false;
     }
 
     public virtual void Park(World.WorldCoord dir)

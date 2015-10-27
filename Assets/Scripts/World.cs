@@ -1,4 +1,4 @@
-﻿#define DEBUG
+﻿//#define CUSTOM_DEBUG
 
 using System;
 using System.Collections;
@@ -120,11 +120,13 @@ public class World : MonoBehaviour
     public enum DIRECTION {UP, RIGHT, DOWN, LEFT};
 
     public float gridToWorldSize = .5f;
+    public readonly float GRID_TILE_RELATIVE_WIDTH = 2f;
+    public readonly float GRID_TILE_RELATIVE_HEIGHT = 1.125f;
 
     public static readonly int WORLD_WIDTH = 11;
     public static readonly int WORLD_HEIGHT = 13;
 
-#if DEBUG
+#if CUSTOM_DEBUG
     public GameObject gridSpot;
     GameObject[,,] debugLanePosition = new GameObject[WORLD_WIDTH,WORLD_HEIGHT,4];
 #endif
@@ -401,10 +403,15 @@ public class World : MonoBehaviour
         }
     }
 
+    public Vector2 GetCenterGridWorldLocation(WorldCoord c)
+    {
+        return transform.TransformPoint(new Vector2((float)((GRID_TILE_RELATIVE_WIDTH*c.x)+1)*gridToWorldSize, (float)((GRID_TILE_RELATIVE_HEIGHT*c.y)+1)*gridToWorldSize));
+    }
+
     public Vector2 GetWorldLocation(WorldCoord c, WorldCoord direction)
     {
         //center
-        Vector2 location = new Vector2((float)((2*c.x)+1)*gridToWorldSize, (float)((1.125*c.y)+1)*gridToWorldSize);
+        Vector2 location = GetCenterGridWorldLocation(c);
 
         DIRECTION enumDirection = directionFromCoord(direction);
         if(IsParkingSpot(c))
@@ -442,12 +449,12 @@ public class World : MonoBehaviour
                 break;
         }
 
-        return transform.TransformPoint(location);
+        return location;
     }
 
     public void Start()
     {
-#if DEBUG
+#if CUSTOM_DEBUG
         for(int i = 0; i < WORLD_WIDTH; i++)
         {
             for(int j = 0; j < WORLD_HEIGHT; j++)
@@ -464,7 +471,7 @@ public class World : MonoBehaviour
 
     public void Update()
     {
-#if DEBUG
+#if CUSTOM_DEBUG
         World.WorldCoord[] directions = {
             new World.WorldCoord(0, 1),
             new World.WorldCoord(1, 0),

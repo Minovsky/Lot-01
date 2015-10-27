@@ -24,11 +24,31 @@ public class Moveable : MonoBehaviour
 
     }
 
+    protected virtual Vector2 GetWorldLocation(World.WorldCoord c, World.WorldCoord direction)
+    {
+        return World.Instance.GetWorldLocation(c, direction);
+    }
+
+    protected virtual bool CanMoveInto(World.WorldCoord c, World.WorldCoord direction)
+    {
+        return World.Instance.CanMoveInto(c, direction);
+    }
+
+    protected virtual void MoveInto(World.WorldCoord c, World.WorldCoord direction, GameObject go)
+    {
+        World.Instance.MoveInto(c, direction, go);
+    }
+
+    protected virtual void LeaveFrom(World.WorldCoord c, World.WorldCoord direction)
+    {
+        World.Instance.LeaveFrom(c, direction);
+    }
+
     public bool FindNewDestination(World.WorldCoord dir, out Vector2 dest)
     {
-        if(World.Instance.CanMoveInto(worldLocation+dir, dir))
+        if(CanMoveInto(worldLocation+dir, dir))
         {
-            dest = World.Instance.GetWorldLocation(worldLocation+dir, dir);
+            dest = GetWorldLocation(worldLocation+dir, dir);
             return true;
         }
         dest = Vector2.zero;
@@ -44,14 +64,14 @@ public class Moveable : MonoBehaviour
 
     public void TeleportTo(World.WorldCoord destCoord, World.WorldCoord newDir)
     {
-        if(World.Instance.CanMoveInto(destCoord, newDir))
+        if(CanMoveInto(destCoord, newDir))
         {
-            World.Instance.MoveInto(destCoord, newDir, this.gameObject);
+            MoveInto(destCoord, newDir, this.gameObject);
             worldLocation = destCoord;
             direction = newDir;
             destDir = newDir;
             froze = false;
-            current = World.Instance.GetWorldLocation(worldLocation, direction);
+            current = GetWorldLocation(worldLocation, direction);
             destination = current;
             transform.position = current;
             MoveIfPossible(direction);
@@ -66,14 +86,14 @@ public class Moveable : MonoBehaviour
             transform.position = Vector2.MoveTowards(transform.position, destination, speed*Time.deltaTime);
 
             //Transition to next cell
-            if(Vector2.Distance(transform.position, destination)/Vector2.Distance(destination, current) < .75 && !transitioned)
+            if(Vector2.Distance(transform.position, destination)/Vector2.Distance(destination, current) < .5 && !transitioned)
             {
                 World.WorldCoord destCoord = worldLocation+destDir;
-                if(World.Instance.CanMoveInto(destCoord, destDir))
+                if(CanMoveInto(destCoord, destDir))
                 {
                     transitioned = true;
-                    World.Instance.LeaveFrom(worldLocation, direction);
-                    World.Instance.MoveInto(destCoord, destDir, this.gameObject);
+                    LeaveFrom(worldLocation, direction);
+                    MoveInto(destCoord, destDir, this.gameObject);
                     worldLocation = destCoord;
                     direction = destDir;
                 }
@@ -90,7 +110,7 @@ public class Moveable : MonoBehaviour
         }
         else
         {
-            if(World.Instance.CanMoveInto(worldLocation+destDir, destDir))
+            if(CanMoveInto(worldLocation+destDir, destDir))
                 froze = false;
         }
     }

@@ -25,9 +25,11 @@ GameObject:
   m_Component:
   - 4: {fileID: 462394}
   - 114: {fileID: 11438474}
+  - 61: {fileID: 6117034}
+  - 50: {fileID: 5030500}
   m_Layer: 0
   m_Name: NPCCar
-  m_TagString: Untagged
+  m_TagString: Car
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -57,6 +59,35 @@ Transform:
   - {fileID: 411942}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!50 &5030500
+Rigidbody2D:
+  serializedVersion: 2
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 172604}
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: .0500000007
+  m_GravityScale: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!61 &6117034
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 172604}
+  m_Enabled: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: -.0033505857, y: -.00111684203}
+  serializedVersion: 2
+  m_Size: {x: .479546964, y: .256176889}
 --- !u!114 &11438474
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -124,6 +155,18 @@ Prefab:
       value: 
       objectReference: {fileID: 21300000, guid: fe7725cc4dad5a547ad775fd5bed3833,
         type: 3}
+    - target: {fileID: 0}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_TagString
+      value: Car
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 172604}
