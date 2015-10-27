@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Assertions;
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -10,14 +11,20 @@ public class Pedestrian : Moveable
     protected bool unhinged = false;
 
     private static readonly float OFFSCREEN_THRESHOLD = 10f;
+    private static readonly float WIDTH = .16f;
+    private static readonly float HALO_SIZE = .16f;
 
     public GameObject trainExitLocation;
+
+    private List<Car> inPath;
 
     public override void Start()
     {
         base.Start();
 
-        var r = Random.Range(0, World.WORLD_WIDTH/2);
+        inPath = new List<Car>();
+
+        var r = UnityEngine.Random.Range(0, World.WORLD_WIDTH/2);
         var startTarget = new World.WorldCoord(r*2, 0);
 
         TeleportTo(startTarget, new World.WorldCoord(0, 1));
@@ -26,6 +33,25 @@ public class Pedestrian : Moveable
 
     public override void Update()
     {
+        List<Car> carsMissing = new List<Car>();
+
+        foreach(var car in inPath)
+        {
+            if(!CheckInFront(car))
+            {
+                carsMissing.Add(car);
+            }
+            else
+            {
+                car.StopWaiting();
+            }
+        }
+        foreach(var car in carsMissing)
+        {
+            car.WaitForPedestrian();
+            inPath.Remove(car);
+        }
+
         if(!unhinged)
         {
             base.Update();
@@ -38,6 +64,16 @@ public class Pedestrian : Moveable
                 Destroy(this.gameObject);
             }
         }
+    }
+
+    protected bool CheckInFront(Car c)
+    {
+        float forwardDistance = GetComponent<BoxCollider2D>().size.y;
+        var carBounds = c.GetComponent<BoxCollider2D>().bounds;
+        Rect carBox = new Rect((Vector2)(carBounds.min), c.GetComponent<BoxCollider2D>().bounds.size);
+        Rect ourBox = new Rect((Vector2)transform.position + new Vector2(-WIDTH/2 -HALO_SIZE, -HALO_SIZE), new Vector2(WIDTH+2*HALO_SIZE, forwardDistance+2*HALO_SIZE));
+
+        return carBox.Overlaps(ourBox);
     }
 
     protected override Vector2 GetWorldLocation(World.WorldCoord c, World.WorldCoord direction)
@@ -82,14 +118,27 @@ public class Pedestrian : Moveable
     {
         if(other.tag == "Car" || other.tag == "Player")
         {
-            other.gameObject.GetComponent<Car>().WaitForPedestrian();
+            var car = other.gameObject.GetComponent<Car>();
+            if(!CheckInFront(car))
+            {
+                car.WaitForPedestrian();
+            }
+            else
+            {
+                inPath.Add(car);
+                car.StopWaiting();
+
+            }
         }
     }
     protected void OnTriggerExit2D(Collider2D other)
     {
         if(other.tag == "Car" || other.tag == "Player")
         {
-            other.gameObject.GetComponent<Car>().StopWaiting();
+            var car = other.gameObject.GetComponent<Car>();
+            car.StopWaiting();
+            if(inPath.Contains(car))
+                inPath.Remove(car);
         }
     }
 }
