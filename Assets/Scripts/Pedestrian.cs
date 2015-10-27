@@ -52,16 +52,19 @@ public class Pedestrian : Moveable
             inPath.Remove(car);
         }
 
-        if(!unhinged)
+        if(inPath.Count == 0)
         {
-            base.Update();
-        }
-        else
-        {
-            transform.position = transform.position + (Vector3)(speed*new Vector2(direction.x, direction.y)*Time.deltaTime);
-            if(Vector2.Distance(transform.position, World.Instance.GetCenterGridWorldLocation(worldLocation)) >= OFFSCREEN_THRESHOLD)
+            if(!unhinged)
             {
-                Destroy(this.gameObject);
+                base.Update();
+            }
+            else
+            {
+                transform.position = transform.position + (Vector3)(speed*new Vector2(direction.x, direction.y)*Time.deltaTime);
+                if(Vector2.Distance(transform.position, World.Instance.GetCenterGridWorldLocation(worldLocation)) >= OFFSCREEN_THRESHOLD)
+                {
+                    Destroy(this.gameObject);
+                }
             }
         }
     }
