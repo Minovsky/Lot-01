@@ -205,7 +205,7 @@ public class World : MonoBehaviour
     {
         return (0 <= c.x && c.x < WORLD_WIDTH) && (0 <= c.y && c.y < WORLD_HEIGHT);
     }
-    private static bool IsDirection(WorldCoord dir)
+    public static bool IsDirection(WorldCoord dir)
     {
         if(dir.x == 0)
             return dir.y == 1 || dir.y == -1;
