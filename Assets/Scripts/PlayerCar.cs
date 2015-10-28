@@ -54,7 +54,7 @@ public class PlayerCar : Car
 
         if(inputSensed)
         {
-            if(inputResetRoutine != null)
+			if(inputResetRoutine != null)
                 StopCoroutine(inputResetRoutine);
             StartCoroutine(inputDelayReset());
         }
@@ -85,20 +85,14 @@ public class PlayerCar : Car
 
     }
 
-    protected override void OnDestinationReached()
+    protected override void OnRoadReached()
     {
         World.WorldCoord parkingOffset;
-        if(World.Instance.NextToOpenParking(worldLocation, direction, out parkingOffset))
-        {
-            Park(parkingOffset);
-        }
-        else
-        {
-            MoveBasedOnInput();
-        }
+        MoveBasedOnInput();
     }
 
     protected override void OnParked()
     {
+		Debug.Log ("Parked");
     }
 }

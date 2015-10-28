@@ -3,7 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Car
+  - Pedestrian
+  - TrainMarker
+  - Menu
   layers:
   - Default
   - TransparentFX
@@ -49,4 +53,7 @@ TagManager:
     locked: 0
   - name: UI
     uniqueID: 4118006833
+    locked: 0
+  - name: Menu
+    uniqueID: 285325829
     locked: 0

@@ -41,12 +41,6 @@ public class Timer : MonoBehaviour {
 			OnTrainArrived();
 		}
 
-		if(time==5 && !trainArrived)
-		{
-			trainArrived = true;
-			Instantiate(trax);
-		}
-
 		minutes = time / 60;
 		seconds = time % 60;
 		StartCoroutine (CountDown ());
@@ -61,6 +55,11 @@ public class Timer : MonoBehaviour {
 
     void OnTrainArrived()
     {
+		if(!trainArrived)
+		{
+			trainArrived = true;
+			Instantiate(trax);
+		}
 		reachedZero = true;
 		lateSprite.color = new Color (1.0f, 1.0f, 1.0f, 1.0f);
 		trainActive.GetComponent<SpriteRenderer> ().color = new Color (1.0f, 1.0f, 1.0f, 0.0f);
