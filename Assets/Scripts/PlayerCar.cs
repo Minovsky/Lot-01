@@ -7,12 +7,16 @@ using System.Collections.Generic;
 public class PlayerCar : Car
 {
 	public AudioClip horn;
+	public GameObject endScreen;
+
 	private AudioSource audioSource;
     private enum MOVE_ACTION {FORWARD=0, RIGHT, LEFT};
     private World.WorldCoord nextDir;
 
     private static readonly float INPUT_DELAY= 1;
     private Coroutine inputResetRoutine = null;
+
+	private bool isParked = false;
 
     private IEnumerator inputDelayReset()
     {
@@ -104,6 +108,13 @@ public class PlayerCar : Car
 
     protected override void OnParked()
     {
-		Debug.Log ("Parked");
+		if(!isParked)
+		{
+			isParked = true;
+			Debug.Log ("Parked");
+			GameObject endScreenInstance = Instantiate (endScreen);
+			GameObject timer = GameObject.FindGameObjectWithTag("Timer");
+			endScreenInstance.GetComponent<EndGame> ().SetTime (timer.GetComponent<Timer>().time);
+		}
     }
 }

@@ -8,6 +8,7 @@ TagManager:
   - Pedestrian
   - TrainMarker
   - Menu
+  - Timer
   layers:
   - Default
   - TransparentFX

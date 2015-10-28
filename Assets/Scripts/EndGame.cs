@@ -21,4 +21,12 @@ public class EndGame : MonoBehaviour {
 		numScript[1].ChangeNumber(seconds/10);
 		numScript[2].ChangeNumber(seconds%10);
 	}
+
+	void Update()
+	{
+		if(Input.GetKeyDown(KeyCode.Space))
+		{
+			Application.LoadLevel("Stadium");
+		}
+	}
 }

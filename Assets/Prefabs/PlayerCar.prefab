@@ -172,6 +172,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 1
   horn: {fileID: 8300000, guid: f51e9484008dffb4cb49702719508a62, type: 3}
+  endScreen: {fileID: 100472, guid: 4622924580e400e46b33956480bfa24f, type: 2}
 --- !u!212 &21262774
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -246,6 +247,10 @@ Prefab:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: endScreen
+      value: 
+      objectReference: {fileID: 100472, guid: 4622924580e400e46b33956480bfa24f, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 189586}
