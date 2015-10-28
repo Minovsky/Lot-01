@@ -13,6 +13,8 @@ public class Car : Moveable
 
     private bool waitingForPedestrian = false;
 
+    HashSet<Pedestrian> obstaclePedestrians = new HashSet<Pedestrian>();
+
     private IEnumerator Frustation()
     {
         yield return new WaitForSeconds(PATIENCE);
@@ -29,14 +31,22 @@ public class Car : Moveable
         }
     }
 
-    public void WaitForPedestrian()
+    public void WaitForPedestrian(Pedestrian p)
     {
+        obstaclePedestrians.Add(p);
         waitingForPedestrian = true;
     }
 
-    public void StopWaiting()
+    public void StopWaiting(Pedestrian p)
     {
-        waitingForPedestrian = false;
+        if(obstaclePedestrians.Contains(p))
+        {
+            obstaclePedestrians.Remove(p);
+            if(obstaclePedestrians.Count == 0)
+            {
+                waitingForPedestrian = false;
+            }
+        }
     }
 
     public virtual void Park(World.WorldCoord dir)
