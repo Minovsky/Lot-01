@@ -15,7 +15,7 @@ public class CarController : MonoBehaviour {
         destination = i_destination;
     }
 
-    private void UpdateCar(Car car) {
+    private void UpdateCar(NPCCar car) {
         if (car.transform.position != (Vector3)car.GetDest()) {
             return;
         }
@@ -35,15 +35,6 @@ public class CarController : MonoBehaviour {
         } else if (car.GetDirection().y * shift.y < 0) {
             chosenDirection = possibleDirections[1];
         } else {
-            /*
-            if (shift.x == 0) {
-                chosenDirection = possibleDirections[2];
-            } else if (shift.y == 0){
-                chosenDirection = possibleDirections[1];
-            } else {
-                    
-            }
-            */
             if (car.GetDirection().y == 0 && Mathf.Abs(shift.x) < 1.5f) {
                 chosenDirection = possibleDirections[2];
             } else if (car.GetDirection().x == 0 && Mathf.Abs(shift.x) < 1.5f) {
@@ -93,6 +84,11 @@ public class CarController : MonoBehaviour {
             if (parkingSpots.Count > 0) {
                 SetDest(parkingSpots[idxNearest]);
                 UpdateCar(npcCar);
+            } else {
+                // Fixed the NPC cars don't move when there is no spot.
+                if (npcCar.transform.position == (Vector3)npcCar.GetDest()) {
+                    npcCar.MoveRandomDirection();
+                }
             }
         }
     }
