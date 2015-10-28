@@ -71,4 +71,16 @@ public class Car : Moveable
         if(curRoutine != null)
             StopCoroutine(curRoutine);
     }
+
+    public Vector2 GetDest() {
+        return destination;
+    }
+
+    public World.WorldCoord GetLocation() {
+        return worldLocation;
+    }
+
+    public World.WorldCoord GetDirection () {
+        return direction;
+    }
 }
