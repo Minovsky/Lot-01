@@ -205,7 +205,7 @@ public class World : MonoBehaviour
     {
         return (0 <= c.x && c.x < WORLD_WIDTH) && (0 <= c.y && c.y < WORLD_HEIGHT);
     }
-    private static bool IsDirection(WorldCoord dir)
+    public static bool IsDirection(WorldCoord dir)
     {
         if(dir.x == 0)
             return dir.y == 1 || dir.y == -1;
@@ -269,7 +269,6 @@ public class World : MonoBehaviour
                 else
                     isCorrectFlow = compareToOrientation == Lane.ORIENTATION.HORIZONTAL || compareToOrientation == Lane.ORIENTATION.INTERSECTION;
                 break;
-            default:
             case DIRECTION.RIGHT:
             case DIRECTION.LEFT:
                 if(!IsParkingSpot(c))
@@ -277,6 +276,9 @@ public class World : MonoBehaviour
                 else
                     isCorrectFlow = compareToOrientation == Lane.ORIENTATION.VERTICAL || compareToOrientation == Lane.ORIENTATION.INTERSECTION;
                 break;
+            default:
+                Assert.IsTrue(false); //Unrecognized direction
+                return false;
         }
 
         if(isCorrectFlow)
@@ -286,10 +288,12 @@ public class World : MonoBehaviour
                 case DIRECTION.UP:
                 case DIRECTION.LEFT:
                     return m_lot[c.x, c.y].GetLaneSide(LANE_SIDE.UP_LEFT) == null;
-                default:
                 case DIRECTION.DOWN:
                 case DIRECTION.RIGHT:
                     return m_lot[c.x, c.y].GetLaneSide(LANE_SIDE.DOWN_RIGHT) == null;
+                default:
+                    Assert.IsTrue(false); //Unrecognized direction
+                    return false;
             }
         }
         else

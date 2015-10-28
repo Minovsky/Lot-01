@@ -50,7 +50,7 @@ public class NPCCar : Car
         }
         else
         {
-            MoveRandomDirection();
+            //MoveRandomDirection();
         }
     }
 
@@ -61,6 +61,7 @@ public class NPCCar : Car
         Car car = World.Instance.GetRandomParkedCar();
         if(car != null)
             car.UnPark();
+        Destroy(this.gameObject);
     }
 
     protected override void OnParked()

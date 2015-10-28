@@ -64,18 +64,16 @@ public class Moveable : MonoBehaviour
 
     public void TeleportTo(World.WorldCoord destCoord, World.WorldCoord newDir)
     {
-        if(CanMoveInto(destCoord, newDir))
-        {
-            MoveInto(destCoord, newDir, this.gameObject);
-            worldLocation = destCoord;
-            direction = newDir;
-            destDir = newDir;
-            froze = false;
-            current = GetWorldLocation(worldLocation, direction);
-            destination = current;
-            transform.position = current;
-            MoveIfPossible(direction);
-        }
+        Assert.IsTrue(CanMoveInto(destCoord, newDir));
+        MoveInto(destCoord, newDir, this.gameObject);
+        worldLocation = destCoord;
+        direction = newDir;
+        destDir = newDir;
+        froze = false;
+        current = GetWorldLocation(worldLocation, direction);
+        destination = current;
+        transform.position = current;
+        MoveIfPossible(direction);
     }
 
     // Update is called once per frame

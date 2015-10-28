@@ -104,7 +104,6 @@ public class PlayerCar : Car
 
     protected override void OnRoadReached()
     {
-        World.WorldCoord parkingOffset;
         MoveBasedOnInput();
     }
 
