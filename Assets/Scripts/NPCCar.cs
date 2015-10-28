@@ -47,7 +47,7 @@ public class NPCCar : Car
         }
         else
         {
-            MoveRandomDirection();
+            //MoveRandomDirection();
         }
     }
 

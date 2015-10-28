@@ -29,11 +29,13 @@ public class CarController : MonoBehaviour {
             new World.WorldCoord(0, shift.y==0 ? 0:shift.y/Mathf.Abs(shift.y))
         };
         World.WorldCoord chosenDirection = car.GetDirection();
+        
         if (car.GetDirection().x * shift.x < 0) {
             chosenDirection = possibleDirections[2];
         } else if (car.GetDirection().y * shift.y < 0) {
             chosenDirection = possibleDirections[1];
         } else {
+            /*
             if (shift.x == 0) {
                 chosenDirection = possibleDirections[2];
             } else if (shift.y == 0){
@@ -41,7 +43,15 @@ public class CarController : MonoBehaviour {
             } else {
                     
             }
+            */
+            if (car.GetDirection().y == 0 && Mathf.Abs(shift.x) < 1.5f) {
+                chosenDirection = possibleDirections[2];
+            } else if (car.GetDirection().x == 0 && Mathf.Abs(shift.x) < 1.5f) {
+                chosenDirection = possibleDirections[1];
+            }
+            
         }
+
         if (World.IsDirection(chosenDirection)==false || World.Instance.CanMoveInto(car.GetLocation() + chosenDirection, chosenDirection) == false) {
             chosenDirection = car.GetDirection();        
         }
