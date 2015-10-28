@@ -71,16 +71,27 @@ public class PlayerCar : Car
     {
         uint wrapIndex = (uint)Array.IndexOf(World.POSSIBLE_DIRECTIONS, direction);
 
+        World.WorldCoord selectedDirection;
+
         if((nextDir == World.POSSIBLE_DIRECTIONS[(wrapIndex-1) % World.POSSIBLE_DIRECTIONS.Length]
                 || nextDir == World.POSSIBLE_DIRECTIONS[(wrapIndex+1) % World.POSSIBLE_DIRECTIONS.Length])
                 && World.Instance.CanMoveInto(worldLocation+nextDir, nextDir))
         {
-            MoveIfPossible(nextDir);
+            selectedDirection = nextDir;
         }
         else
         {
             //Move forward
-            MoveIfPossible(direction);
+            selectedDirection = direction;
+        }
+
+        if(World.Instance.IsParkingSpot(worldLocation+selectedDirection))
+        {
+            Park(selectedDirection);
+        }
+        else
+        {
+            MoveIfPossible(selectedDirection);
         }
 
     }
