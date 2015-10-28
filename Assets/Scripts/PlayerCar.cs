@@ -7,7 +7,8 @@ using System.Collections.Generic;
 public class PlayerCar : Car
 {
 	public AudioClip horn;
-	public GameObject endScreen;
+	public GameObject endScreenLose;
+	public GameObject endScreenWin;
 
 	private AudioSource audioSource;
     private enum MOVE_ACTION {FORWARD=0, RIGHT, LEFT};
@@ -17,6 +18,7 @@ public class PlayerCar : Car
     private Coroutine inputResetRoutine = null;
 
 	private bool isParked = false;
+	private GameObject endScreenInstance;
 
     private IEnumerator inputDelayReset()
     {
@@ -111,10 +113,18 @@ public class PlayerCar : Car
 		if(!isParked)
 		{
 			isParked = true;
-			Debug.Log ("Parked");
-			GameObject endScreenInstance = Instantiate (endScreen);
-			GameObject timer = GameObject.FindGameObjectWithTag("Timer");
-			endScreenInstance.GetComponent<EndGame> ().SetTime (timer.GetComponent<Timer>().time);
+			Timer timerScript = GameObject.FindGameObjectWithTag("Timer").GetComponent<Timer>();
+
+			if(timerScript.trainArrived)
+			{
+				endScreenInstance = Instantiate (endScreenLose);
+			}
+			else
+			{
+				endScreenInstance = Instantiate (endScreenWin);
+			}
+
+			endScreenInstance.GetComponent<EndGame> ().SetTime (timerScript.time);
 		}
     }
 }

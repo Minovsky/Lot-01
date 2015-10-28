@@ -8,11 +8,11 @@ public class Timer : MonoBehaviour {
 	public GameObject late;
 	public GameObject trainActive;
 	public GameObject trax;
+	public bool trainArrived = false;
 
 	private int minutes;
 	private int seconds;
 	private bool reachedZero = false;
-	private bool trainArrived = false;
 	private Numbers[] numScript = new Numbers[3];
 	private SpriteRenderer lateSprite;
 	

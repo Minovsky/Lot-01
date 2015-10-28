@@ -5,7 +5,8 @@ public class StartGame : MonoBehaviour {
 
 	public Sprite start;
 	public Sprite startActive;
-	public GameObject menu;
+	private GameObject menu;
+	public GameObject timer;
 
 	private SpriteRenderer spriteRenderer;
 
@@ -27,6 +28,7 @@ public class StartGame : MonoBehaviour {
 
 	void OnMouseDown()
 	{
+		Instantiate (timer);
 		menu.SetActive (false);
 	}
 }
