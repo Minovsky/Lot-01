@@ -65,7 +65,7 @@ public class CarController : MonoBehaviour {
                             || World.Instance.ParkingSpotOpen(parkingSpot, World.POSSIBLE_DIRECTIONS[2]) 
                             || World.Instance.ParkingSpotOpen(parkingSpot, World.POSSIBLE_DIRECTIONS[3]))) {
                     parkingSpots.Add(parkingSpot);
-                    break;
+                    // Fixed: no break.
                 }
             }
         }
