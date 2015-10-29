@@ -15,7 +15,7 @@ public class Pedestrian : Moveable
     protected bool unhinged = false;
 
     private static readonly float OFFSCREEN_THRESHOLD = 10f;
-    private static readonly float WIDTH = .16f;
+    private static readonly float WIDTH = .10f;
     private static readonly float HALO_SIZE = 0f;
 
     public string trainExitTag = "TrainMarker";

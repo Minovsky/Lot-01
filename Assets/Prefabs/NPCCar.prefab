@@ -27,6 +27,7 @@ GameObject:
   - 114: {fileID: 11438474}
   - 50: {fileID: 5061526}
   - 61: {fileID: 6167808}
+  - 82: {fileID: 8290272}
   m_Layer: 0
   m_Name: NPCCar
   m_TagString: Car
@@ -88,6 +89,76 @@ BoxCollider2D:
   m_Offset: {x: -.00262979674, y: 0}
   serializedVersion: 2
   m_Size: {x: .647991836, y: .349999994}
+--- !u!82 &8290272
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 172604}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: .0799999982
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
 --- !u!114 &11438474
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -100,12 +171,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
+  horn: {fileID: 8300000, guid: 4ca646250da333e48a0ad43e05e812ae, type: 3}
   standInCarPrefab: {fileID: 168138, guid: 84c067e65febd444a8e8a03425575859, type: 2}
   carSprites:
   - {fileID: 21300000, guid: fe7725cc4dad5a547ad775fd5bed3833, type: 3}
   - {fileID: 21300000, guid: bce05cffdc372024899850a8d09fdb4d, type: 3}
   - {fileID: 21300000, guid: 3080dbca27d87d144b2e104b27341068, type: 3}
   - {fileID: 21300000, guid: 632bb7adc7f17d84db26bfdadab6c2fc, type: 3}
+  - {fileID: 21300000, guid: 92af4e5aca3e43a4a8d234706d7d74d3, type: 3}
+  - {fileID: 21300000, guid: 9c035196e478a38488b4a9eec5a99c8d, type: 3}
+  - {fileID: 21300000, guid: 378373c48f3108141a67379b0b5bf30d, type: 3}
+  - {fileID: 21300000, guid: d4b58d82d65282a458bb2ba9437c80ae, type: 3}
 --- !u!212 &21259450
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -141,7 +217,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 0}
       propertyPath: carSprites.Array.size
-      value: 4
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_LocalScale.y
@@ -195,6 +271,34 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_TagString
       value: Car
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: carSprites.Array.data[4]
+      value: 
+      objectReference: {fileID: 21300000, guid: 92af4e5aca3e43a4a8d234706d7d74d3,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: carSprites.Array.data[5]
+      value: 
+      objectReference: {fileID: 21300000, guid: 9c035196e478a38488b4a9eec5a99c8d,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: carSprites.Array.data[6]
+      value: 
+      objectReference: {fileID: 21300000, guid: 378373c48f3108141a67379b0b5bf30d,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: carSprites.Array.data[7]
+      value: 
+      objectReference: {fileID: 21300000, guid: d4b58d82d65282a458bb2ba9437c80ae,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: horn
+      value: 
+      objectReference: {fileID: 8300000, guid: 4ca646250da333e48a0ad43e05e812ae, type: 3}
+    - target: {fileID: 0}
+      propertyPath: m_Volume
+      value: .0799999982
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

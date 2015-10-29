@@ -57,7 +57,7 @@ public class LevelSpawner : MonoBehaviour
         foreach(var pair in parking)
         {
             Car car = ((GameObject)Instantiate(standInCarPrefab, Vector2.zero, Quaternion.identity)).GetComponent<Car>();
-			car.GetComponentInChildren<StandInCar> ().ChangeColor (Random.Range (0,4));
+			car.GetComponentInChildren<StandInCar> ().ChangeColor (Random.Range (0,8));
             car.TeleportTo(pair.c, pair.d);
         }
     }

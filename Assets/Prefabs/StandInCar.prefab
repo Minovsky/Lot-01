@@ -74,6 +74,10 @@ MonoBehaviour:
   - {fileID: 21300000, guid: bce05cffdc372024899850a8d09fdb4d, type: 3}
   - {fileID: 21300000, guid: 3080dbca27d87d144b2e104b27341068, type: 3}
   - {fileID: 21300000, guid: 632bb7adc7f17d84db26bfdadab6c2fc, type: 3}
+  - {fileID: 21300000, guid: 92af4e5aca3e43a4a8d234706d7d74d3, type: 3}
+  - {fileID: 21300000, guid: 9c035196e478a38488b4a9eec5a99c8d, type: 3}
+  - {fileID: 21300000, guid: 378373c48f3108141a67379b0b5bf30d, type: 3}
+  - {fileID: 21300000, guid: d4b58d82d65282a458bb2ba9437c80ae, type: 3}
 --- !u!212 &21261820
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -107,6 +111,10 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: carSprites.Array.size
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_LocalScale.x
       value: .75
@@ -144,6 +152,26 @@ Prefab:
       propertyPath: m_SortingLayerID
       value: 207516571
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: carSprites.Array.data[4]
+      value: 
+      objectReference: {fileID: 21300000, guid: 92af4e5aca3e43a4a8d234706d7d74d3,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: carSprites.Array.data[5]
+      value: 
+      objectReference: {fileID: 21300000, guid: 9c035196e478a38488b4a9eec5a99c8d,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: carSprites.Array.data[6]
+      value: 
+      objectReference: {fileID: 21300000, guid: 378373c48f3108141a67379b0b5bf30d,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: carSprites.Array.data[7]
+      value: 
+      objectReference: {fileID: 21300000, guid: d4b58d82d65282a458bb2ba9437c80ae,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 168138}

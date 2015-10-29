@@ -74,6 +74,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 410686}
   - 114: {fileID: 11401550}
+  - 82: {fileID: 8275560}
   m_Layer: 0
   m_Name: Timer
   m_TagString: Timer
@@ -234,6 +235,76 @@ Transform:
   m_Children: []
   m_Father: {fileID: 410686}
   m_RootOrder: 1
+--- !u!82 &8275560
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 177614}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: .536000013
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
 --- !u!114 &11401550
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -245,7 +316,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d26f1e49df4d4eb4d8b0b1218ff01fcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  time: 60
+  time: 10
   numberObjects:
   - {fileID: 180528}
   - {fileID: 191188}
@@ -253,7 +324,12 @@ MonoBehaviour:
   late: {fileID: 146826}
   trainActive: {fileID: 125342}
   trax: {fileID: 149008, guid: e298a8514f0b1214db1f816f7577d77b, type: 2}
+  pedestrianSpawner: {fileID: 198100, guid: b14ceacb0047a2a469a070feedcfd0d6, type: 2}
   trainArrived: 0
+  radio:
+  - {fileID: 8300000, guid: 3546ab6b7bb757c47b6e7b93d629e9b6, type: 3}
+  - {fileID: 8300000, guid: a64406efbb08c3946a652036ecb6ed76, type: 3}
+  - {fileID: 8300000, guid: 4387e9f81358fc0439d6bcae61bb8b28, type: 3}
 --- !u!114 &11423658
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -515,7 +591,35 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: time
-      value: 60
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: pedestrianSpawner
+      value: 
+      objectReference: {fileID: 198100, guid: b14ceacb0047a2a469a070feedcfd0d6, type: 2}
+    - target: {fileID: 0}
+      propertyPath: radio.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 3546ab6b7bb757c47b6e7b93d629e9b6, type: 3}
+    - target: {fileID: 0}
+      propertyPath: radio.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: a64406efbb08c3946a652036ecb6ed76, type: 3}
+    - target: {fileID: 0}
+      propertyPath: radio.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: 4387e9f81358fc0439d6bcae61bb8b28, type: 3}
+    - target: {fileID: 0}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Volume
+      value: .536000013
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

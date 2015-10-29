@@ -67,7 +67,8 @@ public class PlayerCar : Car
 
 		if(Input.GetKeyUp (KeyCode.H))
 		{
-			audioSource.PlayOneShot(horn);
+			if(!audioSource.isPlaying)
+				audioSource.PlayOneShot(horn);
 		}
 
         base.Update();

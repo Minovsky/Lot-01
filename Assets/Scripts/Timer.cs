@@ -8,13 +8,16 @@ public class Timer : MonoBehaviour {
 	public GameObject late;
 	public GameObject trainActive;
 	public GameObject trax;
+	public GameObject pedestrianSpawner;
 	public bool trainArrived = false;
+	public AudioClip[] radio = new AudioClip[3];
 
 	private int minutes;
 	private int seconds;
 	private bool reachedZero = false;
 	private Numbers[] numScript = new Numbers[3];
 	private SpriteRenderer lateSprite;
+	private AudioSource audioSource;
 	
 	void Start ()
 	{
@@ -26,6 +29,9 @@ public class Timer : MonoBehaviour {
 		numScript[2] = numberObjects[2].GetComponent<Numbers> ();
 		lateSprite = late.GetComponent<SpriteRenderer> ();
 		lateSprite.color = new Color (1.0f, 1.0f, 1.0f, 0.0f);
+		audioSource = GetComponent<AudioSource> ();
+		if(!audioSource.isPlaying)
+			audioSource.PlayOneShot(radio[Random.Range (0,radio.Length)]);
 	}
 
 	IEnumerator CountDown()
@@ -59,9 +65,16 @@ public class Timer : MonoBehaviour {
 		{
 			trainArrived = true;
 			Instantiate(trax);
+			StartCoroutine(SpawnPedestrians());
 		}
 		reachedZero = true;
 		lateSprite.color = new Color (1.0f, 1.0f, 1.0f, 1.0f);
 		trainActive.GetComponent<SpriteRenderer> ().color = new Color (1.0f, 1.0f, 1.0f, 0.0f);
+	}
+
+	IEnumerator SpawnPedestrians()
+	{
+		yield return new WaitForSeconds (2.0f);
+		Instantiate (pedestrianSpawner);
 	}
 }

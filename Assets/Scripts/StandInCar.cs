@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class StandInCar : Car
 {
-	public Sprite[] carSprites = new Sprite[4];
+	public Sprite[] carSprites = new Sprite[8];
 
     public override void Start ()
     {

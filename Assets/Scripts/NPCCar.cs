@@ -4,17 +4,21 @@ using System.Collections.Generic;
 
 public class NPCCar : Car
 {
+	public AudioClip horn;
     public GameObject standInCarPrefab;
-	public Sprite[] carSprites = new Sprite[4];
+	public Sprite[] carSprites = new Sprite[8];
 
     private bool dead = false;
 	private int randomValue;
+	private AudioSource audioSource;
 
     // Use this for initialization
     public override void Start ()
     {
-		randomValue = Random.Range (0, 4);
+		randomValue = Random.Range (0, 8);
 		GetComponentInChildren<SpriteRenderer> ().sprite = carSprites [randomValue];
+		audioSource = GetComponent<AudioSource> ();
+		StartCoroutine (PlayHorn ());
     }
 
     public void MoveRandomDirection()
@@ -77,4 +81,12 @@ public class NPCCar : Car
             car.TeleportTo(worldLocation, direction);
         }
     }
+
+	IEnumerator PlayHorn()
+	{
+		yield return new WaitForSeconds (Random.Range (5,12));
+		if(!audioSource.isPlaying)
+			audioSource.PlayOneShot(horn);
+		StartCoroutine (PlayHorn ());
+	}
 }
