@@ -4,10 +4,10 @@ using System.Collections.Generic;
 
 public class StandInCar : Car
 {
-    // Use this for initialization
+	public Sprite[] carSprites = new Sprite[4];
+
     public override void Start ()
     {
-
     }
 
     public override void Update()
@@ -20,4 +20,9 @@ public class StandInCar : Car
         World.Instance.LeaveFrom(worldLocation, direction);
         Destroy(this.gameObject);
     }
+
+	public void ChangeColor(int value)
+	{
+		GetComponentInChildren<SpriteRenderer> ().sprite = carSprites [value];
+	}
 }

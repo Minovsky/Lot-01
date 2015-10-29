@@ -7,6 +7,8 @@ TagManager:
   - Car
   - Pedestrian
   - TrainMarker
+  - Menu
+  - Timer
   layers:
   - Default
   - TransparentFX
@@ -43,4 +45,16 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Vehicles
+    uniqueID: 207516571
+    locked: 0
+  - name: Border
+    uniqueID: 1825170741
+    locked: 0
+  - name: UI
+    uniqueID: 4118006833
+    locked: 0
+  - name: Menu
+    uniqueID: 285325829
     locked: 0

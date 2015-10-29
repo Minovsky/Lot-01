@@ -6,12 +6,19 @@ using System.Collections.Generic;
 
 public class PlayerCar : Car
 {
+	public AudioClip horn;
+	public GameObject endScreenLose;
+	public GameObject endScreenWin;
 
+	private AudioSource audioSource;
     private enum MOVE_ACTION {FORWARD=0, RIGHT, LEFT};
     private World.WorldCoord nextDir;
 
     private static readonly float INPUT_DELAY= 1;
     private Coroutine inputResetRoutine = null;
+
+	private bool isParked = false;
+	private GameObject endScreenInstance;
 
     private IEnumerator inputDelayReset()
     {
@@ -23,6 +30,7 @@ public class PlayerCar : Car
     // Use this for initialization
     public override void Start ()
     {
+		audioSource = GetComponent<AudioSource> ();
         nextDir = direction;
     }
 
@@ -52,10 +60,16 @@ public class PlayerCar : Car
 
         if(inputSensed)
         {
-            if(inputResetRoutine != null)
+			if(inputResetRoutine != null)
                 StopCoroutine(inputResetRoutine);
             StartCoroutine(inputDelayReset());
         }
+
+		if(Input.GetKeyUp (KeyCode.H))
+		{
+			audioSource.PlayOneShot(horn);
+		}
+
         base.Update();
     }
 
@@ -95,5 +109,21 @@ public class PlayerCar : Car
 
     protected override void OnParked()
     {
+		if(!isParked)
+		{
+			isParked = true;
+			Timer timerScript = GameObject.FindGameObjectWithTag("Timer").GetComponent<Timer>();
+
+			if(timerScript.trainArrived)
+			{
+				endScreenInstance = Instantiate (endScreenLose);
+			}
+			else
+			{
+				endScreenInstance = Instantiate (endScreenWin);
+			}
+
+			endScreenInstance.GetComponent<EndGame> ().SetTime (timerScript.time);
+		}
     }
 }
