@@ -475,6 +475,12 @@ public class World : MonoBehaviour
 
     public void Update()
     {
+
+		if(Input.GetKeyUp(KeyCode.Escape))
+		{
+			Application.Quit();
+		}
+
 #if CUSTOM_DEBUG
         World.WorldCoord[] directions = {
             new World.WorldCoord(0, 1),
