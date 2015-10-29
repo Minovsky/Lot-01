@@ -8,7 +8,7 @@ public class Car : Moveable
 {
     public static readonly float PATIENCE = 3; 
 
-    private bool parking;
+    protected bool parking;
     private Coroutine curRoutine;
 
     private bool waitingForPedestrian = false;
@@ -20,6 +20,7 @@ public class Car : Moveable
         yield return new WaitForSeconds(PATIENCE);
 
         parking = false;
+        destDir = direction;
         OnDestinationReached();
     }
 
@@ -53,8 +54,8 @@ public class Car : Moveable
     {
         Assert.IsTrue(World.Instance.ParkingSpotOpen(worldLocation+dir, dir));
 
-        parking = true;
         MoveIfPossible(dir);
+        parking = true;
 
         curRoutine = StartCoroutine(Frustation());
     }
