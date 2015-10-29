@@ -46,7 +46,15 @@ public class CarController : MonoBehaviour {
         if (World.IsDirection(chosenDirection)==false || World.Instance.CanMoveInto(car.GetLocation() + chosenDirection, chosenDirection) == false) {
             chosenDirection = car.GetDirection();        
         }
-        car.MoveIfPossible(chosenDirection);
+
+        if(World.Instance.IsParkingSpot(car.GetLocation()+chosenDirection))
+        {
+            car.Park(chosenDirection);
+        }
+        else
+        {
+            car.MoveIfPossible(chosenDirection);
+        }
     }
     
     public void Start() {

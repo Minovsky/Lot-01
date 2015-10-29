@@ -54,6 +54,14 @@ public class NPCCar : Car
         }
     }
 
+    public override void MoveIfPossible(World.WorldCoord dir)
+    {
+        if(!parking)
+        {
+            base.MoveIfPossible(dir);
+        }
+    }
+
     private IEnumerator RandomLeaveLot()
     {
         yield return new WaitForSeconds(2);
@@ -66,6 +74,7 @@ public class NPCCar : Car
 
     protected override void OnParked()
     {
+        base.OnParked();
         if(!dead)
         {
             dead = true;

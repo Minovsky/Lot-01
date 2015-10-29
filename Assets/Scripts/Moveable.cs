@@ -113,7 +113,7 @@ public class Moveable : MonoBehaviour
         }
     }
 
-    public void MoveIfPossible(World.WorldCoord dir)
+    public virtual void MoveIfPossible(World.WorldCoord dir)
     {
         Vector2 dest;
         //Try and move forward
