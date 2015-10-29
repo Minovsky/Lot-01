@@ -24,7 +24,6 @@ public class PedestrianSpawner : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
-        StartSpawning();
     }
 
     // Update is called once per frame

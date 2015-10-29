@@ -324,7 +324,6 @@ MonoBehaviour:
   late: {fileID: 146826}
   trainActive: {fileID: 125342}
   trax: {fileID: 149008, guid: e298a8514f0b1214db1f816f7577d77b, type: 2}
-  pedestrianSpawner: {fileID: 198100, guid: b14ceacb0047a2a469a070feedcfd0d6, type: 2}
   trainArrived: 0
   radio:
   - {fileID: 8300000, guid: 3546ab6b7bb757c47b6e7b93d629e9b6, type: 3}
@@ -586,6 +585,10 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: radio.Array.size
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_IsActive
       value: 1
