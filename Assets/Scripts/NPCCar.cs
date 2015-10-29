@@ -10,12 +10,23 @@ public class NPCCar : Car
     private bool dead = false;
 	private int randomValue;
 
+    public int color = -1;
     // Use this for initialization
     public override void Start ()
     {
+        if (color < 0) {
 		randomValue = Random.Range (0, 4);
 		GetComponentInChildren<SpriteRenderer> ().sprite = carSprites [randomValue];
+        color = randomValue;
+        }
+
+
     }
+	public void ChangeColor(int value)
+	{
+        color = value;
+		GetComponentInChildren<SpriteRenderer> ().sprite = carSprites [value];
+	}
 
     public void MoveRandomDirection()
     {
