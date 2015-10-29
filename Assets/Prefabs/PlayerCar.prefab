@@ -201,6 +201,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
+  horn: {fileID: 8300000, guid: ae4b03b83bdac0840a76269b03bb324e, type: 3}
+  endScreenLose: {fileID: 100472, guid: 4622924580e400e46b33956480bfa24f, type: 2}
+  endScreenWin: {fileID: 147472, guid: 3c45c42af74efd04d9e6ebb132d3f346, type: 2}
 --- !u!198 &19845442
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -1290,10 +1293,6 @@ ParticleSystemRenderer:
   m_Mesh1: {fileID: 0}
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
-  horn: {fileID: 8300000, guid: f51e9484008dffb4cb49702719508a62, type: 3}
-  endScreenLose: {fileID: 100472, guid: 4622924580e400e46b33956480bfa24f, type: 2}
-  endScreenWin: {fileID: 147472, guid: 3c45c42af74efd04d9e6ebb132d3f346, type: 2}
-  timerObject: {fileID: 177614, guid: 6356d4187bf2f9044921eeb7cc1a8c13, type: 2}
 --- !u!212 &21262774
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -1355,7 +1354,7 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: horn
       value: 
-      objectReference: {fileID: 8300000, guid: f51e9484008dffb4cb49702719508a62, type: 3}
+      objectReference: {fileID: 8300000, guid: ae4b03b83bdac0840a76269b03bb324e, type: 3}
     - target: {fileID: 0}
       propertyPath: m_IsKinematic
       value: 1

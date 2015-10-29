@@ -11,6 +11,7 @@ public class Timer : MonoBehaviour {
 	public GameObject pedestrianSpawner;
 	public bool trainArrived = false;
 	public AudioClip[] radio = new AudioClip[3];
+	public AudioClip trainArrivalSound;
 
 	private int minutes;
 	private int seconds;
@@ -41,6 +42,14 @@ public class Timer : MonoBehaviour {
 			time--;
 		else
 			time++;
+
+		if (time == 5)
+		{
+			if(!trainArrived)
+			{
+					audioSource.PlayOneShot(trainArrivalSound);
+			}
+		}
 
 		if (time == 0)
 		{

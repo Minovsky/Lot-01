@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class PedestrianSpawner : MonoBehaviour
 {
@@ -8,6 +9,17 @@ public class PedestrianSpawner : MonoBehaviour
     public GameObject pedestrian;
 
     private Coroutine spawnerRoutine = null;
+	private List<GameObject> pedestrians = new List<GameObject>();
+	private static PedestrianSpawner _Instance;
+	public static PedestrianSpawner Instance
+	{
+		get
+		{
+			if(_Instance == null)
+				_Instance = GameObject.FindObjectOfType<PedestrianSpawner>();
+			return _Instance;
+		}
+	}
 
     // Use this for initialization
     void Start ()
@@ -27,7 +39,7 @@ public class PedestrianSpawner : MonoBehaviour
         {
             yield return new WaitForSeconds(interval);
 
-            Instantiate(pedestrian, Vector3.zero, Quaternion.identity);
+			pedestrians.Add ((GameObject)Instantiate(pedestrian, Vector3.zero, Quaternion.identity));
         }
     }
 
@@ -35,13 +47,25 @@ public class PedestrianSpawner : MonoBehaviour
     {
         StopSpawning();
         spawnerRoutine = StartCoroutine(SpawnAtInterval(pedestrianSpawnTime));
+
+		GetComponent<AudioSource> ().Play ();
     }
 
     public void StopSpawning()
     {
+
         if(spawnerRoutine != null)
         {
             StopCoroutine(spawnerRoutine);
         }
     }
+
+	public void RemovePedestrian(GameObject ped)
+	{
+		pedestrians.Remove (ped);
+		if(pedestrians.Count == 0)
+		{
+			GetComponent<AudioSource>().Stop ();
+		}
+	}
 }

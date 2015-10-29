@@ -9,6 +9,7 @@ public class LevelSpawner : MonoBehaviour
     public GameObject standInCarPrefab;
     public GameObject npcCarPrefab;
     public GameObject playerCarPrefab;
+	public GameObject menuPrefab;
 
     public uint numberOfNPCs = 8;
     public uint numberOfOpenSpots = 3;
@@ -16,9 +17,9 @@ public class LevelSpawner : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
+		Instantiate (menuPrefab);
         GenerateParkedCars();
-
-        Car playerCar = ((GameObject)Instantiate(playerCarPrefab, Vector2.zero, Quaternion.identity)).GetComponent<Car>();
+		Car playerCar = ((GameObject)Instantiate (playerCarPrefab, Vector2.zero, Quaternion.identity)).GetComponent<Car>();
         playerCar.TeleportTo(new World.WorldCoord(0, World.WORLD_HEIGHT-1), new World.WorldCoord(1, 0));
         for(int i = 0; i < numberOfNPCs; i++)
         {

@@ -5,8 +5,10 @@ public class StartGame : MonoBehaviour {
 
 	public Sprite start;
 	public Sprite startActive;
-	private GameObject menu;
 	public GameObject timer;
+
+	private GameObject menu;
+	private GameObject playerCarInstance;
 
 	private SpriteRenderer spriteRenderer;
 
@@ -14,6 +16,8 @@ public class StartGame : MonoBehaviour {
 	{
 		spriteRenderer = GetComponent<SpriteRenderer> ();
 		menu = GameObject.FindGameObjectWithTag ("Menu");
+		playerCarInstance = GameObject.FindGameObjectWithTag ("Player");
+		playerCarInstance.SetActive (false);
 	}
 
 	void OnMouseEnter()
@@ -28,6 +32,7 @@ public class StartGame : MonoBehaviour {
 
 	void OnMouseDown()
 	{
+		playerCarInstance.SetActive (true);
 		Instantiate (timer);
 		menu.SetActive (false);
 	}

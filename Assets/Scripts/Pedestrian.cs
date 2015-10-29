@@ -266,4 +266,9 @@ public class Pedestrian : Moveable
                 inPath.Remove(car);
         }
     }
+
+	protected void OnDestroy()
+	{
+		PedestrianSpawner.Instance.RemovePedestrian (this.gameObject);
+	}
 }

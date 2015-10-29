@@ -316,7 +316,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d26f1e49df4d4eb4d8b0b1218ff01fcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  time: 10
+  time: 7
   numberObjects:
   - {fileID: 180528}
   - {fileID: 191188}
@@ -330,6 +330,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 3546ab6b7bb757c47b6e7b93d629e9b6, type: 3}
   - {fileID: 8300000, guid: a64406efbb08c3946a652036ecb6ed76, type: 3}
   - {fileID: 8300000, guid: 4387e9f81358fc0439d6bcae61bb8b28, type: 3}
+  trainArrivalSound: {fileID: 8300000, guid: 1e405d1ac104d824bb61f19d68b413a3, type: 3}
+  pedestrianSound: {fileID: 8300000, guid: cf45e594ad4b0864891616fdb4f59437, type: 3}
 --- !u!114 &11423658
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -591,7 +593,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: time
-      value: 10
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: pedestrianSpawner
@@ -621,6 +623,14 @@ Prefab:
       propertyPath: m_Volume
       value: .536000013
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: trainArrivalSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 1e405d1ac104d824bb61f19d68b413a3, type: 3}
+    - target: {fileID: 0}
+      propertyPath: pedestrianSound
+      value: 
+      objectReference: {fileID: 8300000, guid: cf45e594ad4b0864891616fdb4f59437, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 177614}
